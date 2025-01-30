@@ -32,3 +32,4 @@ C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Reposito
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Repositorio\obj\Debug\net6.0\GestaoFinanceira.Repositorio.pdb
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Repositorio\obj\Debug\net6.0\GestaoFinanceira.Repositorio.genruntimeconfig.cache
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Repositorio\obj\Debug\net6.0\ref\GestaoFinanceira.Repositorio.dll
+C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Repositorio\obj\Debug\net6.0\GestaoFinanceira.Repositorio.sourcelink.json

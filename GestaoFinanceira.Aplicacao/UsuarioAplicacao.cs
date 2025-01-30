@@ -1,6 +1,10 @@
 using GestaoFinanceira.Repositorio;
 using GestaoFinanceira.Dominio.Entidades;
 using GestaoFinanceira.Dominio.Enumeradores;
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace GestaoFinanceira.Aplicacao
 {
@@ -22,10 +26,10 @@ namespace GestaoFinanceira.Aplicacao
                 throw new Exception("Usuario não encontrado");
             }
 
-            if (usuario.Senha != senha)
-            {
-                throw new Exception("Senha Incorreta");
-            }
+            var permissao = VerificarSenha(senha, usuario.Senha);
+
+            if (!permissao)
+                throw new Exception("Senha invalida");
 
             return usuario.Id;
         }
@@ -49,8 +53,13 @@ namespace GestaoFinanceira.Aplicacao
             if (usuarioExiste != null)
                 throw new Exception("Endereço de e-mail ja cadastrado no sistema");
 
+            var senhaCriptografada = CriptografiaDeSenha(usuario.Senha);
+
+            usuario.Senha = senhaCriptografada;
+
             return await _usuarioRepositorio.SalvarAsync(usuario);
         }
+
         public async Task AtualizarUsuarioAsync(Usuario usuario)
         {
             if (string.IsNullOrEmpty(usuario.Nome) && string.IsNullOrEmpty(usuario.Email))
@@ -74,7 +83,7 @@ namespace GestaoFinanceira.Aplicacao
 
             await _usuarioRepositorio.AtualizarAsync(usuarioDominio);
         }
-        public async Task AlterarSenhaUsuarioAsync(Usuario usuario, string senhaAntiga)
+        public async Task AlterarSenhaUsuarioAsync(Usuario usuario, string senhaAtual)
         {
             if (string.IsNullOrEmpty(usuario.Senha))
                 throw new Exception("A nova senha não pode ser vazia");
@@ -84,13 +93,18 @@ namespace GestaoFinanceira.Aplicacao
             if (usuarioDominio == null || !usuarioDominio.Status)
                 throw new Exception("Usuario não encontrado");
 
-            if (usuarioDominio.Senha != senhaAntiga)
-                throw new Exception("Senha antiga incorreta");
+            var permissao = VerificarSenha(senhaAtual, usuarioDominio.Senha);
 
-            usuarioDominio.Senha = usuario.Senha;
+            if (!permissao)
+                throw new Exception("Senha atual invalida");
+
+            var novaSenhaCriptografada = CriptografiaDeSenha(usuario.Senha);
+
+            usuarioDominio.Senha = novaSenhaCriptografada;
 
             await _usuarioRepositorio.AtualizarAsync(usuarioDominio);
         }
+
         public async Task DesativarUsuarioAsync(int usuarioId)
         {
             var usuarioDominio = await _usuarioRepositorio.ObterPorIdAsync(usuarioId);
@@ -136,6 +150,65 @@ namespace GestaoFinanceira.Aplicacao
                 throw new Exception("A lista está vazia");
 
             return usuarios;
+        }
+
+        public string CriptografiaDeSenha(string senha)
+        {
+            int TamanhoSalt = 16;
+            int TamanhoHash = 32;
+            int NumeroIteracoes = 10000;
+
+            // Gera o salt.
+            byte[] salt = new byte[TamanhoSalt];
+            using (var random = RandomNumberGenerator.Create())
+            {
+                random.GetBytes(salt);
+            }
+
+            // Deriva o hash da senha usando PBKDF2.
+            using (var pbkdf2 = new Rfc2898DeriveBytes(senha, salt, NumeroIteracoes, HashAlgorithmName.SHA256))
+            {
+                byte[] hash = pbkdf2.GetBytes(TamanhoHash);
+
+                // Combina o salt e o hash para armazenar.
+                byte[] hashCompleto = new byte[TamanhoSalt + TamanhoHash];
+                Array.Copy(salt, 0, hashCompleto, 0, TamanhoSalt);
+                Array.Copy(hash, 0, hashCompleto, TamanhoSalt, TamanhoHash);
+
+                // Retorna o resultado em Base64.
+                return Convert.ToBase64String(hashCompleto);
+            }
+        }
+
+        public bool VerificarSenha(string senhaVerificacao, string senhaArmazenada)
+        {
+            int TamanhoSalt = 16;
+            int TamanhoHash = 32;
+            int NumeroIteracoes = 10000;
+
+            // Converte o hash armazenado de volta para bytes.
+            byte[] hashCompleto = Convert.FromBase64String(senhaArmazenada);
+
+            // Extrai o salt do hash armazenado.
+            byte[] salt = new byte[TamanhoSalt];
+            Array.Copy(hashCompleto, 0, salt, 0, TamanhoSalt);
+
+            // Recalcula o hash da senha fornecida usando o salt extraído.
+            using (var pbkdf2 = new Rfc2898DeriveBytes(senhaVerificacao, salt, NumeroIteracoes, HashAlgorithmName.SHA256))
+            {
+                byte[] hashCalculado = pbkdf2.GetBytes(TamanhoHash);
+
+                // Compara os hashes byte a byte.
+                for (int i = 0; i < TamanhoHash; i++)
+                {
+                    if (hashCompleto[TamanhoSalt + i] != hashCalculado[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

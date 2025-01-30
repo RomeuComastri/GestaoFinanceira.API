@@ -11,4 +11,6 @@ public interface IUsuarioAplicacao
     Task RestaurarUsuarioAsync(int usuarioId);
     Task<Usuario> ObterUsuarioPorIdAsync(int usuarioId);
     Task<IEnumerable<Usuario>> ListarUsuariosAsync();
+    bool VerificarSenha(string senhaVerificacao, string senhaArmazenada);
+    string CriptografiaDeSenha(string senha);
 }

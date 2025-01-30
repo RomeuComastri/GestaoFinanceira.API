@@ -28,3 +28,4 @@ C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Servicos
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Servicos\obj\Debug\net6.0\refint\GestaoFinanceira.Servicos.dll
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Servicos\obj\Debug\net6.0\GestaoFinanceira.Servicos.pdb
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Servicos\obj\Debug\net6.0\ref\GestaoFinanceira.Servicos.dll
+C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Servicos\obj\Debug\net6.0\GestaoFinanceira.Servicos.sourcelink.json

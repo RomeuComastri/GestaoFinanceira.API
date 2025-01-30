@@ -16,24 +16,26 @@ namespace GestaoFinanceira.Aplicacao
         readonly IRecuperarSenhaRepositorio _recuperarSenhaRepositorio;
         readonly IRecuperarSenhaServico _recuperarSenhaServico;
         readonly IUsuarioRepositorio _usuarioRepositorio;
+        readonly IUsuarioAplicacao _usuarioAplicacao;
 
-        public RecuperarSenhaAplicacao(IRecuperarSenhaRepositorio recuperarSenhaRepositorio, IRecuperarSenhaServico recuperarSenhaServico, IUsuarioRepositorio usuarioRepositorio)
+        public RecuperarSenhaAplicacao(IRecuperarSenhaRepositorio recuperarSenhaRepositorio, IRecuperarSenhaServico recuperarSenhaServico, IUsuarioRepositorio usuarioRepositorio, IUsuarioAplicacao usuarioAplicacao)
         {
             _recuperarSenhaRepositorio = recuperarSenhaRepositorio;
             _recuperarSenhaServico = recuperarSenhaServico;
             _usuarioRepositorio = usuarioRepositorio;
+            _usuarioAplicacao = usuarioAplicacao;
         }
 
         public async Task EnviarEmailAsync(string email)
         {
-            if(string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email))
             {
                 throw new Exception("O email não pode ser nulo ou vazio");
             }
 
             var emailExiste = await _usuarioRepositorio.ObterPorEmailAsync(email);
 
-            if(emailExiste == null)
+            if (emailExiste == null)
             {
                 throw new Exception("Email de usuario não cadastrado no sistema");
             }
@@ -61,7 +63,7 @@ namespace GestaoFinanceira.Aplicacao
         {
             var validarRecuperarSenha = await _recuperarSenhaRepositorio.ObterPorEmailECodigoAsync(email, codigo);
 
-            if(validarRecuperarSenha == null)
+            if (validarRecuperarSenha == null)
             {
                 throw new Exception("Código invalido");
             }
@@ -72,26 +74,28 @@ namespace GestaoFinanceira.Aplicacao
 
         public async Task AlterarSenhaAsync(Usuario usuario)
         {
-           if(string.IsNullOrEmpty(usuario.Senha))
+            if (string.IsNullOrEmpty(usuario.Senha))
             {
                 throw new Exception("A senha não pode sem nula ou vazia");
             }
 
             var usuarioDominio = await _usuarioRepositorio.ObterPorEmailAsync(usuario.Email);
 
-           if(usuarioDominio == null)
+            if (usuarioDominio == null)
             {
                 throw new Exception("usuario não cadastrado no sistema!");
             }
 
             var usuarioFezValidacao = await _recuperarSenhaRepositorio.ObterDesativadoAsync(usuarioDominio.Email);
 
-            if(usuarioFezValidacao == null)
+            if (usuarioFezValidacao == null)
             {
                 throw new Exception("Para alterar a senha é necessario fazer a validação");
             }
 
-            usuarioDominio.Senha = usuario.Senha;
+            var senhaCriptografada = _usuarioAplicacao.CriptografiaDeSenha(usuario.Senha);
+
+            usuarioDominio.Senha = senhaCriptografada;
 
             await _usuarioRepositorio.AtualizarAsync(usuarioDominio);
 

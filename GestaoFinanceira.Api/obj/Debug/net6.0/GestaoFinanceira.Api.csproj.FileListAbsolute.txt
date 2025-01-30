@@ -164,3 +164,4 @@ C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Api\obj\
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Api\obj\Debug\net6.0\GestaoFinanceira.Api.pdb
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Api\obj\Debug\net6.0\GestaoFinanceira.Api.genruntimeconfig.cache
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Api\obj\Debug\net6.0\ref\GestaoFinanceira.Api.dll
+C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Api\obj\Debug\net6.0\GestaoFinanceira.Api.sourcelink.json

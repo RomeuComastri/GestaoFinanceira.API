@@ -36,3 +36,4 @@ C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Aplicaca
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Aplicacao\obj\Debug\net6.0\refint\GestaoFinanceira.Aplicacao.dll
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Aplicacao\obj\Debug\net6.0\GestaoFinanceira.Aplicacao.pdb
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Aplicacao\obj\Debug\net6.0\ref\GestaoFinanceira.Aplicacao.dll
+C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Aplicacao\obj\Debug\net6.0\GestaoFinanceira.Aplicacao.sourcelink.json

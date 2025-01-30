@@ -20,3 +20,4 @@ C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Dominio\
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Dominio\obj\Debug\net6.0\refint\GestaoFinanceira.Dominio.dll
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Dominio\obj\Debug\net6.0\GestaoFinanceira.Dominio.pdb
 C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Dominio\obj\Debug\net6.0\ref\GestaoFinanceira.Dominio.dll
+C:\Itera360\ProjetoDeConclusao\GestaoFinanceiraBackEnd\GestaoFinanceira.Dominio\obj\Debug\net6.0\GestaoFinanceira.Dominio.sourcelink.json
