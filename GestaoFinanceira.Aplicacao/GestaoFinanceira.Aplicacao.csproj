@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\GestaoFinanceira.Dominio\GestaoFinanceira.Dominio.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Repositorio\GestaoFinanceira.Repositorio.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Servicos\GestaoFinanceira.Servicos.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+</Project>
